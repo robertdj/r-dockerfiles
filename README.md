@@ -1,7 +1,7 @@
 Dockerfiles for R
 =================
 
-Greatly inspired by the [Version-stable Rocker images](https://github.com/rocker-org/rocker-versioned)
+Greatly inspired by the [Version-stable Rocker images](https://github.com/rocker-org/rocker-versioned), but using Ubuntu instead of Debian.
 
 Check the [Makefile](r-base/Makefile) for build commands for the `r-base` images.
 
@@ -12,5 +12,5 @@ The `r-devtools` image is based on an `r-base` image and you must choose the R v
 
 # License
 
-Having scrutinized the Version-stable Rocker images I have no choice but to use the GPL 2 license.
+Having scrutinized the Dockerfiles for the Version-stable Rocker images I have no choice but to use the GPL 2 license.
 
