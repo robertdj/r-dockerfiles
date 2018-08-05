@@ -12,5 +12,7 @@ The `r-devtools` image is based on an `r-base` image and you must choose the R v
 
 # License
 
-Having scrutinized the Dockerfiles for the Version-stable Rocker images I have no choice but to use the GPL 2 license.
+For the `r-base` image I have scrutinized the Dockerfiles for the Version-stable Rocker images and therefore I have no but to use the GPL 2 license.
+
+The other Dockerfiles are licensed under MIT.
 
