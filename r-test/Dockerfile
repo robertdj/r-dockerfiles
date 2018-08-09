@@ -4,9 +4,9 @@ FROM r-devtools:${R_VERSION}
 USER root
 
 RUN apt-get update \
-        && apt-get -y install \
-                libxml2-dev \
-        && rm -rf /var/lib/apt/lists/*
+    && apt-get -y install \
+        libxml2-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 USER shiny
 
