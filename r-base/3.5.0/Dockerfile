@@ -151,5 +151,7 @@ WORKDIR $HOME
 
 USER shiny
 
+RUN Rscript -e 'install.packages("remotes")'
+
 CMD ["R"]
 
