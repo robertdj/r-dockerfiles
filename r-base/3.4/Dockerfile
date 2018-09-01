@@ -1,9 +1,9 @@
-ARG UBUNTU_VERSION=16:04 
+ARG UBUNTU_VERSION=16.04 
 FROM ubuntu:${UBUNTU_VERSION}
 
-# System settings. R_VERSION and BUILDDEPS from `docker build`
 ARG R_VERSION
 ARG BUILD_DATE
+
 ENV R_VERSION=${R_VERSION} \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
@@ -24,6 +24,7 @@ RUN apt-get update \
 		libbz2-1.0 \
 		libcairo2 \
 		libcurl3 \
+		libcurl4-openssl-dev \
 		libglib2.0-0 \
 		libgomp1 \
 		libicu55 \
@@ -32,7 +33,7 @@ RUN apt-get update \
 		libopenblas-dev \
 		libpangocairo-1.0-0 \
 		libpcre3 \
-		libpng-dev \
+ 		libpng12-0 \
 		libreadline6 \
 		libtiff5 \
 		locales \
@@ -53,14 +54,13 @@ RUN apt-get update \
 		libblas-dev \
 		libbz2-dev \
 		libcairo2-dev \
-		libcurl4-openssl-dev \
 		libpango1.0-dev \
 		libjpeg-dev \
 		libicu-dev \
 		liblapack-dev \
 		libncurses5-dev \ 
 		libpcre3-dev \
- 		libpng12-0 \
+		libpng-dev \
 		libreadline-dev \
 		libtiff5-dev \
 		liblzma-dev \
@@ -147,7 +147,10 @@ RUN useradd --create-home --home-dir $HOME shiny \
 	&& echo "options(repos = c(CRAN = 'https://mran.microsoft.com/snapshot/${BUILD_DATE}'), download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site
 
 WORKDIR $HOME
+
 USER shiny
+
+RUN Rscript -e 'install.packages("remotes")'
 
 CMD ["R"]
 
