@@ -24,6 +24,7 @@ RUN apt-get update \
 		libbz2-1.0 \
 		libcairo2 \
 		libcurl3 \
+		libcurl4-openssl-dev \
 		libglib2.0-0 \
 		libgomp1 \
 		libicu60 \
@@ -53,7 +54,6 @@ RUN apt-get update \
 		libblas-dev \
 		libbz2-dev \
 		libcairo2-dev \
-		libcurl4-openssl-dev \
 		libpango1.0-dev \
 		libjpeg-dev \
 		libicu-dev \
