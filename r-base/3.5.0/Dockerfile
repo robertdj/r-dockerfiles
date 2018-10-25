@@ -145,7 +145,7 @@ RUN useradd --create-home --home-dir $HOME shiny \
 	&& echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library'}" >> /usr/local/lib/R/etc/Renviron \
 	## Add a default CRAN mirror
 	&& BUILD_DATE=${BUILD_DATE-`date -I`} \
-	&& echo "options(repos = c(CRAN = 'https://mran.microsoft.com/snapshot/${BUILD_DATE}'), download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site
+	&& echo "options(repos = 'https://mran.microsoft.com/snapshot/${BUILD_DATE}', download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site
 
 WORKDIR $HOME
 
