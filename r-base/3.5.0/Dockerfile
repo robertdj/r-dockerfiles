@@ -23,7 +23,7 @@ RUN apt-get update \
 		libblas3 \
 		libbz2-1.0 \
 		libcairo2 \
-		libcurl3 \
+		libcurl4 \
 		libcurl4-openssl-dev \
 		libglib2.0-0 \
 		libgomp1 \
