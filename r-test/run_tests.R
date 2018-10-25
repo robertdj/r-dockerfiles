@@ -1,4 +1,4 @@
-devtools::install()
+remotes::install_local(".")
 
 # Run tests
 options("testthat.output_file" = "test-results.xml")
