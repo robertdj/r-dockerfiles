@@ -13,7 +13,8 @@ RUN apt-get update \
 
 USER shiny
 
-RUN Rscript -e 'install.packages(c("covr", "devtools", "roxygen2", "testthat"))'
+RUN Rscript -e 'install.packages(c("covr", "devtools", "roxygen2", "testthat"))' \
+	&& rm -rf /tmp/*
 
 COPY --chown=shiny:shiny run_tests.R $HOME/package/
 
