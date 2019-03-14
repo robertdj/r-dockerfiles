@@ -1,7 +1,7 @@
-ARG UBUNTU_VERSION=18.04 
+ARG UBUNTU_VERSION 
 FROM r-deps:${UBUNTU_VERSION} as builder
 
-ARG R_VERSION=3.5.0
+ARG R_VERSION
 ENV R_VERSION=${R_VERSION}
 
 RUN apt-get update \
@@ -82,7 +82,7 @@ RUN cd tmp/ \
 
 FROM r-deps:18.04
 
-ARG BUILD_DATE=2018-07-02
+ARG BUILD_DATE
 
 COPY --from=builder /usr/local/ /usr/local/
 
