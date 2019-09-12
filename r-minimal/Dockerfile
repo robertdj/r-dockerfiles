@@ -1,7 +1,7 @@
-ARG UBUNTU_VERSION 
-FROM r-deps:${UBUNTU_VERSION} as builder
+ARG R_VERSION=3.6.0
+FROM r-deps:${R_VERSION} as builder
 
-ARG R_VERSION
+ARG R_VERSION=3.6.0
 ENV R_VERSION=${R_VERSION}
 
 RUN apt-get update \
@@ -80,9 +80,9 @@ RUN cd tmp/ \
 	&& make install
 
 
-FROM r-deps:18.04
+FROM r-deps:${R_VERSION}
 
-ARG BUILD_DATE
+ARG BUILD_DATE=2019-07-05
 
 COPY --from=builder /usr/local/ /usr/local/
 
