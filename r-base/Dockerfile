@@ -1,4 +1,4 @@
-ARG R_VERSION=3.5.0 
+ARG R_VERSION=3.6.0 
 FROM r-minimal:${R_VERSION}
 
 USER root
