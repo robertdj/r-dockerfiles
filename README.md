@@ -27,6 +27,19 @@ However, `r-test` does not run on it own -- you have to use `r-test` as a `FROM`
 Any system requirements must be installed before the `COPY` line.
 
 
+# Shiny
+
+The shiny image contains a Shiny server installed from source as [described in the Shiny server's wiki](https://github.com/rstudio/shiny-server/wiki/Building-Shiny-Server-from-Source).
+
+The configuration file `shiny-server.conf` is very basic:
+It exposes the Shiny server at port 3838 and includes some example apps.
+
+Example apps from Shiny server are available at `<url>/sample-apps`.
+
+Example apps from the [shiny package](https://cran.r-project.org/package=shiny) are available at `<url>/<app name>`, where `<app name>` is one of the following: 
+`01_hello`; `02_text`; `03_reactivity`; `04_mpg`; `05_sliders`; `06_tabsets`; `07_widgets`; `08_html`; `09_upload`; `10_download`; `11_timer`.
+
+
 # License
 
 For the `r-base` image I have scrutinized the Dockerfiles for the Version-stable Rocker images and therefore I have no choice but to use the GPL 2 license.
