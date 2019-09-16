@@ -3,20 +3,25 @@ Dockerfiles for R
 
 Greatly inspired by the [Version-stable Rocker images](https://github.com/rocker-org/rocker-versioned), but using Ubuntu instead of Debian.
 
+The `Makefile` contains commands to build each of the images.
+Check the file to see the build arguments for Docker.
+
+
+# Minimal
+
+The `r-minimal` image contains R and the [remotes package](https://cran.r-project.org/package=remotes), but no compilers.
+The repository is set to an appropriate [MRAN snapshot](https://mran.microsoft.com/documents/rro/reproducibility#snapshot) to ensure compatability with the R version.
+
 
 # Base
 
-The `r-base` images contains a compiled R and the [remotes package](https://cran.r-project.org/package=remotes).
-
-An image depends on three `build-arg`'s: The Ubuntu version, the R version and the [MRAN snapshot](https://mran.microsoft.com/documents/rro/reproducibility#snapshot) to download packages from.
-Check the [Makefile](r-base/Makefile) for standard combinations of build commands.
-
-The remotes package makes it easy to copy your R package into the image and make a local installation.
+The `r-base` image is based on `r-minimal` and contains C(++) and Fortran compilers.
 
 
 # Test
 
-The `r-test` image is used a *base* image for testing R packages and save test results in the JUnit XML format and code coverage in the Cobertura format. It builds on `r-base` and you must therefore choose a version of R.
+The `r-test` image is used as a *base* image for testing R packages and save test results in the JUnit XML format and code coverage in the Cobertura format. 
+It builds on `r-base` and you must therefore choose a version of R.
 
 However, `r-test` does not run on it own -- you have to use `r-test` as a `FROM` image and copy the source of an R packages into `/home/shiny/package`. That is, include a Dockerfile with the following content in the top folder of your R package:
 
@@ -29,7 +34,7 @@ Any system requirements must be installed before the `COPY` line.
 
 # Shiny
 
-The shiny image contains a Shiny server installed from source as [described in the Shiny server's wiki](https://github.com/rstudio/shiny-server/wiki/Building-Shiny-Server-from-Source).
+The shiny image contains a Shiny server installed from source as [described in Shiny server's wiki](https://github.com/rstudio/shiny-server/wiki/Building-Shiny-Server-from-Source).
 
 The configuration file `shiny-server.conf` is very basic:
 It exposes the Shiny server at port 3838 and includes some example apps.
