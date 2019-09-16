@@ -82,7 +82,7 @@ RUN cd tmp/ \
 
 FROM r-deps:${R_VERSION}
 
-ARG BUILD_DATE=2019-07-05
+ARG MRAN_DATE=2019-07-05
 
 COPY --from=builder /usr/local/ /usr/local/
 
@@ -108,8 +108,7 @@ RUN useradd --create-home --home-dir $HOME shiny \
 	&& echo "R_LIBS_USER='/usr/local/lib/R/site-library'" >> /usr/local/lib/R/etc/Renviron \
 	&& echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library'}" >> /usr/local/lib/R/etc/Renviron \
 	## Add a default CRAN mirror
-	&& BUILD_DATE=${BUILD_DATE-`date -I`} \
-	&& echo "options(repos = 'https://mran.microsoft.com/snapshot/${BUILD_DATE}', download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site
+	&& echo "options(repos = 'https://mran.microsoft.com/snapshot/${MRAN_DATE}', download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site
 
 WORKDIR $HOME
 
