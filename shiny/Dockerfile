@@ -2,15 +2,14 @@ ARG R_VERSION
 FROM r-base:${R_VERSION}
 
 ARG SHINY_VERSION=1.5.9.923
-ENV SHINY_VERSION=${SHINY_VERSION}
 
 USER root
 
 RUN apt-get update && apt-get install -y \
-    cmake \
-    python2.7 \
-    python-pip \
-    wget \
+        cmake \
+        python2.7 \
+        python-pip \
+        wget \
     && rm -rf /tmp/* \
     && apt-get autoremove -y \
     && apt-get autoclean -y \
@@ -46,7 +45,9 @@ RUN ln -s /usr/local/shiny-server/bin/shiny-server /usr/bin/shiny-server && \
 
 USER shiny
 
-RUN Rscript -e 'install.packages(c("shiny", "rmarkdown"))' && \
+ARG NCORES
+
+RUN Rscript -e 'install.packages(c("shiny", "rmarkdown"), Ncpus = Sys.getenv("NCORES", unset = parallel::detectCores()))' && \
     rm -rf /tmp/*
 
 RUN cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/
