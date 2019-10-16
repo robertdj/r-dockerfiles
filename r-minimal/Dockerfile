@@ -1,8 +1,7 @@
-ARG R_VERSION=3.6.0
+ARG R_VERSION
 FROM r-deps:${R_VERSION} as builder
 
-ARG R_VERSION=3.6.0
-ENV R_VERSION=${R_VERSION}
+ARG R_VERSION
 
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -82,7 +81,7 @@ RUN cd tmp/ \
 
 FROM r-deps:${R_VERSION}
 
-ARG MRAN_DATE=2019-07-05
+ARG MRAN_DATE
 
 COPY --from=builder /usr/local/ /usr/local/
 
@@ -116,5 +115,5 @@ USER shiny
 
 RUN Rscript -e 'install.packages("remotes")'
 
-CMD ["R"]
+CMD [ "R", "--vanilla" ]
 
