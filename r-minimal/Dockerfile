@@ -1,8 +1,6 @@
 ARG R_VERSION
 FROM r-deps:${R_VERSION} as builder
 
-ARG R_VERSION
-
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 		bash-completion \
@@ -48,6 +46,8 @@ RUN apt-get update \
 		xvfb \
 		zlib1g-dev
 	
+ARG R_VERSION
+
 # Download and install R
 RUN cd tmp/ \
 	&& curl -O https://cran.r-project.org/src/base/R-3/R-${R_VERSION}.tar.gz \
@@ -81,8 +81,6 @@ RUN cd tmp/ \
 
 FROM r-deps:${R_VERSION}
 
-ARG MRAN_DATE
-
 COPY --from=builder /usr/local/ /usr/local/
 
 
@@ -96,6 +94,8 @@ COPY --from=builder /usr/local/ /usr/local/
 # Microsoft's daily snapshots of CRAN are used as package repo for reproducibility
 
 ENV HOME /home/shiny
+
+ARG MRAN_DATE
 
 RUN useradd --create-home --home-dir $HOME shiny \
 	&& chown -R shiny:shiny $HOME \
@@ -115,5 +115,5 @@ USER shiny
 
 RUN Rscript -e 'install.packages("remotes")'
 
-CMD [ "R", "--vanilla" ]
+CMD [ "R", "--no-save" ]
 
