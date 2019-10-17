@@ -41,7 +41,17 @@ It exposes the Shiny server at port 3838 and includes some example apps.
 Example apps from Shiny server are available at `<url>/sample-apps`.
 
 Example apps from the [shiny package](https://cran.r-project.org/package=shiny) are available at `<url>/<app name>`, where `<app name>` is one of the following: 
-`01_hello`; `02_text`; `03_reactivity`; `04_mpg`; `05_sliders`; `06_tabsets`; `07_widgets`; `08_html`; `09_upload`; `10_download`; `11_timer`.
+- `01_hello`
+- `02_text`
+- `03_reactivity`
+- `04_mpg`
+- `05_sliders`
+- `06_tabsets`
+- `07_widgets`
+- `08_html`
+- `09_upload`
+- `10_download`
+- `11_timer`.
 
 
 # License
