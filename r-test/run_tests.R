@@ -1,4 +1,4 @@
-remotes::install_local(".")
+remotes::install_local(".", dependencies = TRUE, Ncpus = Sys.getenv("NCORES", unset = parallel::detectCores()))
 
 # Run tests
 options("testthat.output_file" = "test-results.xml")
