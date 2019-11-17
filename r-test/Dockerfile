@@ -18,9 +18,12 @@ ARG NCORES
 RUN Rscript -e 'install.packages(c("covr", "devtools", "roxygen2", "testthat"), Ncpus = Sys.getenv("NCORES", unset = parallel::detectCores()))' \
 	&& rm -rf /tmp/*
 
-COPY --chown=shiny:shiny run_tests.R $HOME/package/
+COPY --chown=shiny:shiny run_tests.R $HOME/
+
+# This ensures that shiny user owns ~/package. Should not be necessary...
+RUN mkdir $HOME/package
 
 WORKDIR $HOME/package
 
-CMD [ "Rscript", "run_tests.R" ]
+CMD [ "Rscript", "/home/shiny/run_tests.R" ]
 
