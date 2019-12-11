@@ -23,7 +23,7 @@ RUN setx path "%path%;C:\R\bin;C:\Rtools\bin"
 
 ARG MRAN_DATE
 
-RUN echo options(repos = c(CRAN = "https://mran.microsoft.com/snapshot/${MRAN_DATE}")) >> C:\R\library\base\R\Rprofile
+RUN echo options(repos = c(CRAN = "https://mran.microsoft.com/snapshot/%MRAN_DATE%")) >> C:\R\library\base\R\Rprofile
 
 RUN Rscript.exe -e "install.packages('remotes')"
 
