@@ -8,7 +8,7 @@ RUN R-%R_VERSION%-win.exe /VERYSILENT /DIR="C:\R\"
 
 RUN curl.exe -o Rtools.exe https://cran.r-project.org/bin/windows/Rtools/Rtools35.exe
 
-RUN Rtools.exe /TYPE=full /VERYSILENT -NoNewWindow -Wait
+RUN Rtools.exe /VERYSILENT -NoNewWindow -Wait
 
 
 # ------------------------------------------------------------------------------
