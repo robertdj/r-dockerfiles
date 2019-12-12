@@ -15,17 +15,23 @@ RUN Rtools.exe /VERYSILENT -NoNewWindow -Wait
 
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
-COPY --from=builder C:\\R C:\\R
+COPY --from=builder ["C:/R", "C:/Program Files/R"]
 
-COPY --from=builder C:\\Rtools C:\\Rtools
-
-RUN setx path "%path%;C:\R\bin;C:\Rtools\bin"
+COPY --from=builder C:/Rtools C:/Rtools
 
 ARG MRAN_DATE
 
-RUN echo options(repos = c(CRAN = "https://mran.microsoft.com/snapshot/%MRAN_DATE%")) >> C:\R\library\base\R\Rprofile
+# RUN echo options(repos = c(CRAN = "https://mran.microsoft.com/snapshot/%MRAN_DATE%")) >> "C:\Program Files\R\library\base\R\Rprofile"
+RUN echo options(repos = c(CRAN = "https://cloud.r-project.org")) >> "C:\Program Files\R\library\base\R\Rprofile"
 
-RUN Rscript.exe -e "install.packages('remotes')"
+USER ContainerUser
 
-CMD [ "R.exe", "--no-save" ]
+RUN setx path "%path%;C:\Program Files\R\bin;C:\Rtools\bin"
+
+RUN echo "R_LIBS_USER=~/R/%p-library/%V" >> "C:\Users\ContainerUser\Documents\.Renviron"
+RUN Rscript -e "dir.create(Sys.getenv('R_LIBS_USER'), recursive = TRUE)"
+
+RUN Rscript -e "install.packages('remotes')"
+
+CMD [ "R", "--no-save" ]
 
