@@ -21,17 +21,18 @@ COPY --from=builder C:/Rtools C:/Rtools
 
 ARG MRAN_DATE
 
-# RUN echo options(repos = c(CRAN = "https://mran.microsoft.com/snapshot/%MRAN_DATE%")) >> "C:\Program Files\R\library\base\R\Rprofile"
-RUN echo options(repos = c(CRAN = "https://cloud.r-project.org")) >> "C:\Program Files\R\library\base\R\Rprofile"
+RUN echo options(repos = c(CRAN = "https://mran.microsoft.com/snapshot/%MRAN_DATE%")) >> "C:\Program Files\R\library\base\R\Rprofile"
+# RUN echo options(repos = c(CRAN = "https://cloud.r-project.org")) >> "C:\Program Files\R\library\base\R\Rprofile"
+
+# Include R/Rtools in system path
+RUN setx /M path "%path%;C:\Program Files\R\bin;C:\Rtools\bin"
 
 USER ContainerUser
-
-RUN setx path "%path%;C:\Program Files\R\bin;C:\Rtools\bin"
 
 RUN echo "R_LIBS_USER=~/R/%p-library/%V" >> "C:\Users\ContainerUser\Documents\.Renviron"
 RUN Rscript -e "dir.create(Sys.getenv('R_LIBS_USER'), recursive = TRUE)"
 
-RUN Rscript -e "install.packages('remotes')"
+RUN Rscript -e "install.packages('remotes'); unlink(file.path(Sys.getenv('TMP'), '*'), recursive = TRUE)"
 
 CMD [ "R", "--no-save" ]
 
