@@ -15,17 +15,17 @@ RUN Rtools.exe /VERYSILENT -NoNewWindow -Wait
 
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
-COPY --from=builder ["C:/R", "C:/Program Files/R"]
+COPY --from=builder ["C:/R", "C:/R"]
 
 COPY --from=builder C:/Rtools C:/Rtools
 
 ARG MRAN_DATE
 
-RUN echo options(repos = c(CRAN = "https://mran.microsoft.com/snapshot/%MRAN_DATE%")) >> "C:\Program Files\R\library\base\R\Rprofile"
-# RUN echo options(repos = c(CRAN = "https://cloud.r-project.org")) >> "C:\Program Files\R\library\base\R\Rprofile"
+RUN echo options(repos = c(MRAN = "https://mran.microsoft.com/snapshot/%MRAN_DATE%")) >> "C:\R\library\base\R\Rprofile"
+# RUN echo options(repos = c(CRAN = "https://cloud.r-project.org")) >> "C:\R\library\base\R\Rprofile"
 
 # Include R/Rtools in system path
-RUN setx /M path "%path%;C:\Program Files\R\bin;C:\Rtools\bin"
+RUN setx /M path "%path%;C:\R\bin;C:\Rtools\bin"
 
 USER ContainerUser
 
