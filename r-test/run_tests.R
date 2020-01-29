@@ -8,3 +8,5 @@ devtools::test(reporter = testthat::JunitReporter$new())
 cov <- covr::package_coverage()
 covr::to_cobertura(cov, "coverage.xml")
 
+print(cov)
+
