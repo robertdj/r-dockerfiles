@@ -29,7 +29,8 @@ RUN setx /M path "%path%;C:\R\bin;C:\Rtools\bin"
 
 USER ContainerUser
 
-RUN echo "R_LIBS_USER=~/R/%p-library/%V" >> "C:\Users\ContainerUser\Documents\.Renviron"
+RUN echo "R_LIBS_USER=~/R/%p-library/%V" >> "%USERPROFILE%\Documents\.Renviron"
+
 RUN Rscript -e "dir.create(Sys.getenv('R_LIBS_USER'), recursive = TRUE)"
 
 RUN Rscript -e "install.packages('remotes'); unlink(file.path(Sys.getenv('TMP'), '*'), recursive = TRUE)"
