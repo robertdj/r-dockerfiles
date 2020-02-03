@@ -3,7 +3,7 @@ Dockerfiles for R
 
 Greatly inspired by the [Version-stable Rocker images](https://github.com/rocker-org/rocker-versioned), but using Ubuntu instead of Debian.
 
-The `Makefile` contains commands to build each of the images.
+The `Makefile` contains commands to build each of the Linux images.
 Check the file to see the build arguments for Docker.
 
 
@@ -51,7 +51,13 @@ Example apps from the [shiny package](https://cran.r-project.org/package=shiny) 
 - `08_html`
 - `09_upload`
 - `10_download`
-- `11_timer`.
+- `11_timer`
+
+
+# Windows
+
+The `windows` folder contain Dockerfiles for an `r-base` image and an `r-test` image that are counterparts to the Linux images above, but based on a [Windows Server Core image](https://hub.docker.com/_/microsoft-windows-servercore).
+These images have R and [Rtools](https://cran.r-project.org/bin/windows/Rtools) installed and the same packages as their Linux counterparts.
 
 
 # License
