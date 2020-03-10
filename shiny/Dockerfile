@@ -1,14 +1,14 @@
 ARG R_VERSION
 FROM r-base:${R_VERSION}
 
-ARG SHINY_VERSION=1.5.9.923
+ARG SHINY_VERSION
 
 USER root
 
 RUN apt-get update && apt-get install -y \
         cmake \
-        python2.7 \
-        python-pip \
+        python3.6 \
+        python3-pip \
         wget \
     && rm -rf /tmp/* \
     && apt-get autoremove -y \
@@ -21,14 +21,13 @@ RUN cd /tmp && \
     cd shiny-server-${SHINY_VERSION} && \
     mkdir tmp && \
     cd tmp && \
+    ../external/node/install-node.sh && \
     PATH=`pwd`/../bin:$PATH && \
-    PYTHON=`which python` && \
-    cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DPYTHON="$PYTHON" ../ && \
+    cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../ && \
     make && \
     mkdir ../build && \
-    ../external/node/install-node.sh && \
-    (cd .. && ./bin/npm --python="$PYTHON" install) && \
-    (cd .. && ./bin/node ./ext/node/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js --python="$PYTHON" rebuild) && \
+    (cd .. && ./bin/npm install) && \
+    (cd .. && ./bin/node ./ext/node/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js rebuild) && \
     make install && \
     rm -rf /tmp/*
 
