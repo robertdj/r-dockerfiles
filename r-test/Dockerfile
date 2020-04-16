@@ -25,5 +25,3 @@ RUN mkdir $HOME/package
 
 WORKDIR $HOME/package
 
-CMD [ "Rscript", "/home/shiny/run_tests.R" ]
-
