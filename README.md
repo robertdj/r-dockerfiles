@@ -6,6 +6,10 @@ Greatly inspired by the [Version-stable Rocker images](https://github.com/rocker
 The `Makefile` contains commands to build each of the images.
 Check the file to see the build arguments for Docker.
 
+# Deps
+
+Contains the runtime dependencies for R.
+
 
 # Minimal
 
@@ -20,15 +24,14 @@ The `r-base` image is based on `r-minimal` and contains C(++) and Fortran compil
 
 # Test
 
-The `r-test` image is used as a *base* image for testing R packages and save test results in the JUnit XML format and code coverage in the Cobertura format. 
+The `r-test` image is used as a *base* image for testing R packages. 
+The image has the [covr package](https://cran.r-project.org/package=covr), the [devtools package](https://cran.r-project.org/package=devtools), the [roxygen2 package](https://cran.r-project.org/package=roxygen2) and the [testthat package](https://cran.r-project.org/package=testthat) installed.
 
-However, `r-test` does not run on it own -- you have to use `r-test` as a `FROM` image and copy the source of an R packages into `/home/shiny/package`. That is, include a Dockerfile with the following content in the top folder of your R package:
+To test a package in `r-test` copy it to the folder `/home/shiny/package` and run the script `/home/shiny/run_tests.R` to
 
-    FROM r-test:3.5.0
-
-    COPY --chown=shiny:shiny . /home/shiny/package
-
-Any system requirements must be installed before the `COPY` line.
+- Install the package and all its dependencies.
+- Run the tests and save the results in JUnit format in the file `test-results.xml`.
+- Compute code coverage and save the results in Cobertura format in the file `coverage.xml`.
 
 
 # Shiny
