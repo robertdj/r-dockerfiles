@@ -1,4 +1,4 @@
-ARG UBUNTU_VERSION=18.04 
+ARG UBUNTU_VERSION
 FROM ubuntu:${UBUNTU_VERSION}
 
 ENV LC_ALL=en_US.UTF-8 \
@@ -12,9 +12,6 @@ RUN apt-get update \
 		ca-certificates \
 		file \
 		fonts-texgyre \
-		# g++ \
-		# gcc \
-		# gfortran \
 		gsfonts \
 		libblas3 \
 		libbz2-1.0 \
@@ -41,7 +38,7 @@ RUN apt-get update \
 	&& echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
 	&& locale-gen en_US.UTF-8 \
 	&& /usr/sbin/update-locale LANG=en_US.UTF-8 \
-  	## Clean up from R source install
+  	## Clean up
 	&& rm -rf /tmp/* \
 	&& apt-get autoremove -y \
 	&& apt-get autoclean -y \
