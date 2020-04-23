@@ -17,7 +17,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 COPY --from=builder ["C:/R", "C:/R"]
 
-COPY --from=builder C:/Rtools C:/Rtools
+COPY --from=builder ["C:/Rtools", "C:/Rtools"]
 
 ARG MRAN_DATE
 
