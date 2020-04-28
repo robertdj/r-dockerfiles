@@ -62,6 +62,8 @@ Example apps from the [shiny package](https://cran.r-project.org/package=shiny) 
 The `windows` folder contain Dockerfiles for an `r-base` image and an `r-test` image that are counterparts to the Linux images above, but based on a [Windows Server Core image](https://hub.docker.com/_/microsoft-windows-servercore).
 These images have R and [Rtools](https://cran.r-project.org/bin/windows/Rtools) installed and the same packages as their Linux counterparts.
 
+The Dockerfile for `r-base` contain long lines because the usual "newline character" in Windows' CMD (the caret `^`) is not parsed correctly by Docker.
+
 
 # License
 
