@@ -6,6 +6,11 @@ Greatly inspired by the [Version-stable Rocker images](https://github.com/rocker
 The `Makefile` contains commands to build each of the Linux images.
 Check the file to see the build arguments for Docker.
 
+I have one folder for each image, but not for different versions.
+Instead, each version of R has its own tag.
+To get the files for e.g. R version 3.6.2, checkout the tag `v3.6.2`.
+
+
 # Deps
 
 Contains the runtime dependencies for R.
@@ -13,13 +18,12 @@ Contains the runtime dependencies for R.
 
 # Minimal
 
-The `r-minimal` image contains R and the [remotes package](https://cran.r-project.org/package=remotes), but no compilers.
-The repository is set to an appropriate [MRAN snapshot](https://mran.microsoft.com/documents/rro/reproducibility#snapshot) to ensure compatability with the R version.
+The `r-minimal` image contains R and the package repository is set to an appropriate [MRAN snapshot](https://mran.microsoft.com/documents/rro/reproducibility#snapshot) to ensure compatability with the R version.
 
 
 # Base
 
-The `r-base` image is based on `r-minimal` and contains C(++) and Fortran compilers.
+The `r-base` image is based on `r-minimal` and contains C, C++ and Fortran compilers as well as the [remotes package](https://cran.r-project.org/package=remotes).
 
 
 # Test
@@ -63,6 +67,14 @@ The `windows` folder contain Dockerfiles for an `r-base` image and an `r-test` i
 These images have R and [Rtools](https://cran.r-project.org/bin/windows/Rtools) installed and the same packages as their Linux counterparts.
 
 The Dockerfile for `r-base` contain long lines because the usual "newline character" in Windows' CMD (the caret `^`) is not parsed correctly by Docker.
+
+The Windows images are not included in `Makefile`, but from the folder `windows/r-base` the following command builds the base image with an appropriate value of `<R version>`:
+
+```
+docker build --build-arg R_VERSION=<R version> --tag r-base:<R version> .
+```
+
+Replacing `r-base` with `r-test`(in both tag and folder) builds the test image.
 
 
 # License

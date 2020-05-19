@@ -1,11 +1,6 @@
 ARG UBUNTU_VERSION
 FROM ubuntu:${UBUNTU_VERSION}
 
-ENV LC_ALL=en_US.UTF-8 \
-    LANG=en_US.UTF-8 \
-    LANGUAGE=en_US:en \
-    TERM=xterm
-
 RUN apt-get update \
 	# Runtime dependencies
 	&& apt-get install -y --no-install-recommends \
@@ -20,14 +15,14 @@ RUN apt-get update \
 		libcurl4-openssl-dev \
 		libglib2.0-0 \
 		libgomp1 \
-		libicu60 \
+		libicu66 \
 		libjpeg8 \
 		liblzma5 \
 		libopenblas-dev \
 		libpangocairo-1.0-0 \
 		libpcre3 \
  		libpng16-16 \
-		libreadline7 \
+		libreadline8 \
 		libtiff5 \
 		locales \
 		make \
@@ -43,4 +38,9 @@ RUN apt-get update \
 	&& apt-get autoremove -y \
 	&& apt-get autoclean -y \
 	&& rm -rf /var/lib/apt/lists/*
+
+ENV LC_ALL=en_US.UTF-8 \
+    LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    TERM=xterm
 

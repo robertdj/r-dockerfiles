@@ -12,3 +12,5 @@ RUN apt-get update \
 
 USER shiny
 
+RUN Rscript -e 'install.packages("remotes")'
+
