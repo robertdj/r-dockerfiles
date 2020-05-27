@@ -53,7 +53,5 @@ RUN cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/
 
 COPY --chown=shiny:shiny shiny-server.conf /etc/shiny-server/shiny-server.conf 
 
-EXPOSE 3838
-
 CMD [ "shiny-server" ]
 
