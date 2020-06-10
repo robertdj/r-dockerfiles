@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:ltsc2019 as builder
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 ARG R_VERSION
 
@@ -8,10 +8,10 @@ RUN curl.exe -o R-%R_VERSION%-win.exe https://cran.r-project.org/bin/windows/bas
 
 RUN setx /M path "%path%;C:\R\bin;%RTOOLS40_HOME%\usr\bin"
 
-# ARG MRAN_DATE
 
-# RUN echo options(repos = c(MRAN = "https://mran.microsoft.com/snapshot/%MRAN_DATE%")) >> "C:\R\library\base\R\Rprofile"
-RUN echo options(repos = c(CRAN = "https://cloud.r-project.org")) >> "C:\R\library\base\R\Rprofile"
+ARG MRAN_DATE
+
+RUN echo options(repos = c(MRAN = "https://mran.microsoft.com/snapshot/%MRAN_DATE%")) >> "C:\R\library\base\R\Rprofile"
 
 USER ContainerUser
 
