@@ -1,8 +1,7 @@
 remotes::install_local(".", dependencies = TRUE, Ncpus = Sys.getenv("NCORES", unset = parallel::detectCores()))
 
 # Run tests
-options("testthat.output_file" = "test-results.xml")
-devtools::test(reporter = testthat::JunitReporter$new())
+devtools::test(reporter = testthat::JunitReporter$new(file = "test-results.xml"))
 
 # Compute code coverage
 cov <- covr::package_coverage()
