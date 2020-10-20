@@ -1,5 +1,5 @@
 ARG R_VERSION
-FROM r-deps:${R_VERSION} as builder
+FROM robertdj/r-deps:${R_VERSION} as builder
 
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \

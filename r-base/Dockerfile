@@ -1,5 +1,5 @@
 ARG R_VERSION 
-FROM r-minimal:${R_VERSION}
+FROM robertdj/r-minimal:${R_VERSION}
 
 USER root
 
