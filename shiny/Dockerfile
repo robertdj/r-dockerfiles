@@ -7,7 +7,8 @@ USER root
 
 RUN apt-get update && apt-get install -y \
         cmake \
-        python3.6 \
+        git \
+        python3 \
         python3-pip \
         wget \
     && rm -rf /tmp/* \
