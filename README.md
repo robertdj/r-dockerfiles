@@ -60,6 +60,12 @@ Example apps from the [shiny package](https://cran.r-project.org/package=shiny) 
 - `10_download`
 - `11_timer`
 
+To test if the Shiny server is working, run the command
+
+    docker run --rm -p <port>:3838 robertdj/shiny:<tag>
+
+with an appropriate value of `<port>` (e.g. 3838) and navigate to this URL: <https://localhost:&lt;port&gt;>
+
 
 # Windows
 
