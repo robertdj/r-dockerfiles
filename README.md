@@ -15,19 +15,19 @@ To get the files for e.g. R version 3.6.2, checkout the tag `v3.6.2`.
 # Deps
 
 Contains the runtime dependencies for R.
-Available on [Docker Hub](https://hub.docker.com/repository/docker/robertdj/r-deps).
+Available on [Docker Hub](https://hub.docker.com/r/robertdj/r-deps).
 
 
 # Minimal
 
 The `r-minimal` image contains R and the package repository is set to an appropriate [MRAN snapshot](https://mran.microsoft.com/documents/rro/reproducibility#snapshot) to ensure compatability with the R version.
-Available on [Docker Hub](https://hub.docker.com/repository/docker/robertdj/r-minimal).
+Available on [Docker Hub](https://hub.docker.com/r/robertdj/r-minimal).
 
 
 # Base
 
 The `r-base` image is based on `r-minimal` and contains C, C++ and Fortran compilers as well as the [remotes package](https://cran.r-project.org/package=remotes).
-Available on [Docker Hub](https://hub.docker.com/repository/docker/robertdj/r-base).
+Available on [Docker Hub](https://hub.docker.com/r/robertdj/r-base).
 
 
 # Test
@@ -45,7 +45,7 @@ To test a package in `r-test` copy it to the folder `/home/shiny/package` and ru
 # Shiny
 
 The shiny image contains a Shiny server installed from source as [described in Shiny server's wiki](https://github.com/rstudio/shiny-server/wiki/Building-Shiny-Server-from-Source).
-Available on [Docker Hub](https://hub.docker.com/repository/docker/robertdj/shiny).
+Available on [Docker Hub](https://hub.docker.com/r/robertdj/shiny).
 
 The configuration file `shiny-server.conf` is very basic:
 It exposes the Shiny server at port 3838 and includes some example apps.
