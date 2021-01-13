@@ -79,13 +79,18 @@ These images have R and [Rtools](https://cran.r-project.org/bin/windows/Rtools) 
 
 The Dockerfile for `r-base` contain long lines because the usual "newline character" in Windows' CMD (the caret `^`) is not parsed correctly by Docker.
 
-The Windows images are not included in `Makefile`, but from the folder `windows/r-base` the following command builds the base image with an appropriate value of `<R version>`:
+The Windows images are not included in `Makefile`, but from the folder `windows/r-base` the following command builds the base image with an appropriate value of `<R version>` and associated `MRAN date`
 
 ```
-docker build --build-arg R_VERSION=<R version> --tag r-base:<R version> .
+docker build --build-arg R_VERSION=<R version> --build-arg MRAN_date=<MRAN date> --tag r-base:<R version> .
 ```
 
-Replacing `r-base` with `r-test`(in both tag and folder) builds the test image.
+The `Makefile` contains R versions and matching MRAN dates.
+In the folder `r-test` the following command builds the test image:
+
+```
+docker build --build-arg R_VERSION=<R version> --tag r-test:<R version> .
+```
 
 
 # License
