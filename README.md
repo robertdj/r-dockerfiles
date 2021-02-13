@@ -88,7 +88,7 @@ docker build --build-arg R_VERSION=<R version> --build-arg MRAN_date=<MRAN date>
 ```
 
 The `Makefile` contains R versions and matching MRAN dates.
-In the folder `r-test` the following command builds the test image:
+In the folder `windows/r-test` the following command builds the test image:
 
 ```
 docker build --build-arg R_VERSION=<R version> --tag r-test:<R version> .
