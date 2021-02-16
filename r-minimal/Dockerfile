@@ -78,7 +78,7 @@ RUN cd tmp/ \
 	&& make install
 
 
-FROM r-deps:${R_VERSION}
+FROM robertdj/r-deps:${R_VERSION}
 
 COPY --from=builder /usr/local/ /usr/local/
 
