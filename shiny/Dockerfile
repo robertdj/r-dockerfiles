@@ -3,8 +3,6 @@ FROM robertdj/r-base:${R_VERSION}
 
 ARG SHINY_VERSION
 
-USER root
-
 RUN apt-get update && apt-get install -y \
         cmake \
         git \
@@ -42,8 +40,6 @@ RUN mkdir -p /var/log/shiny-server \
 RUN ln -s /usr/local/shiny-server/bin/shiny-server /usr/bin/shiny-server && \
     ln -s /usr/local/shiny-server/samples/welcome.html /srv/shiny-server/index.html && \
     ln -s /usr/local/shiny-server/samples/sample-apps /srv/shiny-server/sample-apps
-
-USER shiny
 
 ARG NCORES
 

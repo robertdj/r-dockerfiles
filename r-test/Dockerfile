@@ -1,8 +1,6 @@
 ARG R_VERSION
 FROM robertdj/r-base:${R_VERSION}
 
-USER root
-
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		libxml2-dev \
@@ -10,8 +8,6 @@ RUN apt-get update \
 		libssh2-1-dev \
 		zlib1g-dev \
 	&& rm -rf /var/lib/apt/lists/*
-
-USER shiny
 
 ARG NCORES
 

@@ -110,7 +110,5 @@ RUN useradd --create-home --home-dir $HOME shiny \
 
 WORKDIR $HOME
 
-USER shiny
-
 CMD [ "R", "--no-save" ]
 
