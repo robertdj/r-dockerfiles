@@ -14,16 +14,6 @@ To get the files for e.g. R version 3.6.2, checkout the tag `v3.6.2`.
 (This approach does not seem to work with automatic builds on Docker Hub, so I push selected images manually 😰)
 
 
-# `whoami`
-
-When this repo began, all images started R as a normal/non-privileged user.
-This is in accordance with the [best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user). 
-However, these best practices also recommend not to change users too often, which I did.
-
-My current approach is that a user `shiny` is still available in all R images, but no images swich to `shiny`.
-Instead, each image is considered a starting image -- use it in the `FROM` line of a Dockerfile and then swtich to `shiny` with `USER shiny` in the end.
-
-
 # Deps
 
 Contains the runtime dependencies for R.
@@ -103,6 +93,35 @@ In the folder `windows/r-test` the following command builds the test image:
 ```
 docker build --build-arg R_VERSION=<R version> --tag r-test:<R version> .
 ```
+
+
+# Details
+
+Some technical considerations.
+
+
+## `whoami`
+
+When this repo began, all images started R as a normal/non-privileged user.
+This is in accordance with the [best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user). 
+However, these best practices also recommend not to change users too often, which I did.
+
+My current approach is that a user `shiny` is still available in all R images, but no images swich to `shiny`.
+Instead, each image is considered a starting image -- use it in the `FROM` line of a Dockerfile and then swtich to `shiny` with `USER shiny` in the end.
+
+
+
+## Ubuntu
+
+Why am I using Ubuntu as the Linux distribution?
+
+- R packages (with system requirements) are usually tested on popular/larger Linux distributions, making the installation seamless (once the requirements are available).
+- I use Ubuntu on my "daily laptop", so I have to figure out how to install R on Ubuntu anyway.
+
+I have experimented with Alpine Linux, but 
+
+- It is much more work to install packages with system requirements.
+- The runtime dependencies for R actually make the final images so large that they are comparable in size to the Ubuntu images.
 
 
 # License
