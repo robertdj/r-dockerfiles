@@ -7,19 +7,19 @@ SHINY_VERSION=1.5.17.973
 all: deps minimal base test 
 
 deps:
-	docker build --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} --tag ${REGISTRY}/r-deps:${R_VERSION} r-deps
+	DOCKER_BUILDKIT=1 docker build --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} --tag ${REGISTRY}/r-deps:${R_VERSION} r-deps
 
 minimal:
-	docker build --build-arg R_VERSION=${R_VERSION} --build-arg MRAN_DATE=${MRAN_DATE} --tag ${REGISTRY}/r-minimal:${R_VERSION} r-minimal
+	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --build-arg MRAN_DATE=${MRAN_DATE} --tag ${REGISTRY}/r-minimal:${R_VERSION} r-minimal
 
 base:
-	docker build --build-arg R_VERSION=${R_VERSION} --tag ${REGISTRY}/r-base:${R_VERSION} r-base
+	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --tag ${REGISTRY}/r-base:${R_VERSION} r-base
 
 test:
 	cd r-test && \
-	docker build --build-arg R_VERSION=${R_VERSION} --tag ${REGISTRY}/r-test:${R_VERSION} .
+	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --tag ${REGISTRY}/r-test:${R_VERSION} .
 
 shiny:
 	cd shiny && \
-	docker build --build-arg R_VERSION=${R_VERSION} --build-arg SHINY_VERSION=${SHINY_VERSION} --tag ${REGISTRY}/shiny:${R_VERSION}-${SHINY_VERSION} .
+	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --build-arg SHINY_VERSION=${SHINY_VERSION} --tag ${REGISTRY}/shiny:${R_VERSION}-${SHINY_VERSION} .
 

@@ -100,6 +100,11 @@ docker build --build-arg R_VERSION=<R version> --tag r-test:<R version> .
 Some technical considerations.
 
 
+## BuildKit
+
+The Linux Dockerfiles use the [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements) to enable faster builds and the use of [heredocs](https://www.docker.com/blog/introduction-to-heredocs-in-dockerfiles) in the Dockerfiles.
+
+
 ## `whoami`
 
 When this repo began, all images started R as a normal/non-privileged user.

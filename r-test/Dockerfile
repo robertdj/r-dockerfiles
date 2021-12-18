@@ -1,18 +1,21 @@
+# syntax = docker/dockerfile:1.3-labs
+
 ARG R_VERSION
 FROM robertdj/r-base:${R_VERSION}
 
-RUN apt-get update \
-	&& apt-get install -y --no-install-recommends \
-		libxml2-dev \
-		libssl-dev \
-		libssh2-1-dev \
-		zlib1g-dev \
-	&& rm -rf /var/lib/apt/lists/*
+RUN <<EOF
+apt-get update
+apt-get install -y --no-install-recommends \
+    libxml2-dev \
+    libssl-dev \
+    libssh2-1-dev \
+    zlib1g-dev
 
-ARG NCORES
+Rscript -e 'install.packages(c("covr", "devtools", "roxygen2", "testthat"), Ncpus = parallel::detectCores())'
 
-RUN Rscript -e 'install.packages(c("covr", "devtools", "roxygen2", "testthat"), Ncpus = Sys.getenv("NCORES", unset = parallel::detectCores()))' \
-	&& rm -rf /tmp/*
+rm -rf /var/lib/apt/lists/*
+rm -rf /tmp/*
+EOF
 
 COPY --chown=shiny:shiny run_tests.R $HOME/
 
