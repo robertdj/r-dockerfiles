@@ -5,8 +5,7 @@ FROM robertdj/r-deps:${R_VERSION} as builder
 
 RUN <<EOF
 apt-get update
-apt-get upgrade
-DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+apt-get install -y --no-install-recommends \
     bash-completion \
     bison \
     curl \
@@ -24,7 +23,6 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     libicu-dev \
     liblapack-dev \
     libncurses5-dev \
-    libpcre2-dev \
     libpng-dev \
     libreadline-dev \
     libtiff5-dev \
