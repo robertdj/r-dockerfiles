@@ -24,7 +24,7 @@ apt-get install -y --no-install-recommends \
     liblzma5 \
     libopenblas-dev \
     libpangocairo-1.0-0 \
-    libpcre3 \
+    libpcre2-dev \
     libpng16-16 \
     libreadline8 \
     libtiff5 \
