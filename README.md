@@ -2,8 +2,7 @@ Dockerfiles for R
 =================
 
 Dockerfiles related to the [R programming language](https://www.r-project.org) and RStudio's [Shiny Server](https://github.com/rstudio/shiny-server).
-
-Greatly inspired by the [Version-stable Rocker images](https://github.com/rocker-org/rocker-versioned), but using Ubuntu instead of Debian.
+Greatly inspired by the [Version-stable Rocker images](https://github.com/rocker-org/rocker-versioned2).
 
 The `Makefile` contains commands to build each of the Linux images.
 Check the file to see the build arguments for Docker.
