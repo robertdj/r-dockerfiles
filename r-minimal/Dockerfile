@@ -97,13 +97,10 @@ COPY --from=builder /usr/local/ /usr/local/
 #
 # Microsoft's daily snapshots of CRAN are used as package repo for reproducibility
 
-ENV HOME /home/shiny
-
 ARG MRAN_DATE
 
 RUN <<EOF
-useradd --create-home --home-dir $HOME shiny
-chown -R shiny:shiny $HOME
+useradd --create-home --home-dir /home/shiny shiny
 
 # Add a library directory (for user-installed packages)
 mkdir -p /usr/local/lib/R/site-library
@@ -118,7 +115,7 @@ echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/
 echo "options(repos = c(MRAN = 'https://mran.microsoft.com/snapshot/${MRAN_DATE}'), download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site
 EOF
 
-WORKDIR $HOME
+WORKDIR /home/shiny
 
 CMD [ "R", "--no-save" ]
 
