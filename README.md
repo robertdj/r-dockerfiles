@@ -113,6 +113,8 @@ However, these best practices also recommend not to change users too often, whic
 My current approach is that a user `shiny` is still available in all R images, but no images swich to `shiny`.
 Instead, each image is considered a starting image -- use it in the `FROM` line of a Dockerfile and then swtich to `shiny` with `USER shiny` in the end.
 
+The username of the non-root user is usually not important.
+I choose the username `shiny` because this is [Shiny Server's default non-root user](https://docs.rstudio.com/shiny-server/#running-shiny-server-with-root-privileges).
 
 
 ## Ubuntu
