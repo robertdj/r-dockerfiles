@@ -39,6 +39,7 @@ apt-get remove --purge -y $BUILDDEPS
 apt-get autoremove -y
 apt-get autoclean -y
 rm -rf /var/lib/apt/lists/*
+rm -rf /root/.cache/*
 
 # Config Shiny server dirs
 mkdir -p /var/lib/shiny-server /var/log/shiny-server /srv/shiny-server /etc/shiny-server
