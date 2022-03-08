@@ -15,6 +15,9 @@ minimal:
 base:
 	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --tag ${REGISTRY}/r-base:${R_VERSION} r-base
 
+arrow:
+	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --tag ${REGISTRY}/r-arrow:${R_VERSION} r-arrow
+
 test:
 	cd r-test && \
 	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --tag ${REGISTRY}/r-test:${R_VERSION} .
