@@ -17,10 +17,10 @@ rm -rf /var/lib/apt/lists/*
 rm -rf /tmp/*
 EOF
 
-COPY --chown=shiny:shiny run_tests.R $HOME/
+RUN <<EOF
+mkdir -p /home/shiny/package
+chown shiny:shiny /home/shiny/package
+EOF
 
-# This ensures that shiny user owns ~/package. Should not be necessary...
-RUN mkdir $HOME/package
-
-WORKDIR $HOME/package
+WORKDIR /home/shiny/package
 
