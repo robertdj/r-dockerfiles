@@ -1,0 +1,23 @@
+schemaVersion: 2.0.0
+
+commandTests:
+  - name: "R is installed"  
+    command: "which"  
+    args: ["R"]  
+    expectedOutput: ["/usr/local/bin/R"]
+  - name: "Rscript is installed"  
+    command: "which"  
+    args: ["Rscript"]  
+    expectedOutput: ["/usr/local/bin/R"]
+  - name: "R version is correct"  
+    command: "R"
+    args: ["--version"]  
+    expectedOutput: ["R version 4.1.2"]
+  - name: "MRAN is set"
+    command: "Rscript"
+    args: ["-e", "getOption('repos')"]  
+    expectedOutput: ["https://mran.microsoft.com/snapshot/2022-03-10"]
+
+metadataTest:
+  workdir: "/home/shiny"
+
