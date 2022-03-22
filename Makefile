@@ -22,3 +22,13 @@ shiny:
 	cd shiny-server && \
 	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --build-arg SHINY_VERSION=${SHINY_VERSION} --tag ${REGISTRY}/shiny:${R_VERSION}-${SHINY_VERSION} .
 
+
+
+minimal-cst:
+	container-structure-test test --config r-minimal/minimal-tests.yaml --image ${REGISTRY}/r-minimal:${R_VERSION}
+
+base-cst:
+	container-structure-test test --config r-base/base-tests.yaml --image ${REGISTRY}/r-base:${R_VERSION}
+
+shiny-cst:
+	container-structure-test test --config shiny/shiny-tests.yaml --image ${REGISTRY}/shiny:${R_VERSION}-${SHINY_VERSION} 
