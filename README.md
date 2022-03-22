@@ -36,11 +36,8 @@ Available on [Docker Hub](https://hub.docker.com/r/robertdj/r-base).
 The `r-test` image is used as a *base* image for testing R packages. 
 The image has the [{covr} package](https://cran.r-project.org/package=covr), the [{devtools} package](https://cran.r-project.org/package=devtools), the [{roxygen2} package](https://cran.r-project.org/package=roxygen2) and the [{testthat} package](https://cran.r-project.org/package=testthat) installed.
 
-To test a package in `r-test` copy it to the folder `/home/shiny/package` and run the script `/home/shiny/run_tests.R` to
-
-- Install the package and all its dependencies.
-- Run the tests and save the results in JUnit format in the file `test-results.xml`.
-- Compute code coverage and save the results in Cobertura format in the file `coverage.xml`.
+The working dir in this image is `/home/shiny/package`.
+My usecase is to copy/clone a package (repository) into this folder and then test it in `r-test`.
 
 
 # Shiny
@@ -114,7 +111,7 @@ My current approach is that a user `shiny` is still available in all R images, b
 Instead, each image is considered a starting image -- use it in the `FROM` line of a Dockerfile and then swtich to `shiny` with `USER shiny` in the end.
 
 The username of the non-root user is usually not important.
-I choose the username `shiny` because this is [Shiny Server's default non-root user](https://docs.rstudio.com/shiny-server/#running-shiny-server-with-root-privileges).
+I use the username `shiny` because this is [Shiny Server's default non-root user](https://docs.rstudio.com/shiny-server/#running-shiny-server-with-root-privileges).
 
 
 ## Ubuntu
