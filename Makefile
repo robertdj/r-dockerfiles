@@ -16,10 +16,9 @@ base:
 	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --tag ${REGISTRY}/r-base:${R_VERSION} r-base
 
 test:
-	cd r-test && \
-	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --tag ${REGISTRY}/r-test:${R_VERSION} .
+	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --tag ${REGISTRY}/r-test:${R_VERSION} r-test
 
 shiny:
-	cd shiny && \
+	cd shiny-server && \
 	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --build-arg SHINY_VERSION=${SHINY_VERSION} --tag ${REGISTRY}/shiny:${R_VERSION}-${SHINY_VERSION} .
 
