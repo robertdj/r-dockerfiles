@@ -1,34 +1,44 @@
-REGISTRY=robertdj
-UBUNTU_VERSION=20.04
-R_VERSION=4.1.2
-MRAN_DATE=2022-03-10
-SHINY_VERSION=1.5.17.973
+REGISTRY = robertdj
+UBUNTU_VERSION = 20.04
+R_VERSION = 4.1.2
+MRAN_DATE = 2022-03-10
+SHINY_VERSION = 1.5.17.973
+
+MINIMAL_NAME := ${REGISTRY}/r-minimal:${R_VERSION}
+BASE_NAME := ${REGISTRY}/r-base:${R_VERSION}
+SHINY_NAME := ${REGISTRY}/shiny:${R_VERSION}-${SHINY_VERSION}
+
+DOCKER_BUILD = DOCKER_BUILDKIT=1 docker build
+R_BUILD_ARG := --build-arg R_VERSION=${R_VERSION}
+CST = container-structure-test test
+
 
 all: deps minimal base test 
 
 deps:
-	DOCKER_BUILDKIT=1 docker build --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} --tag ${REGISTRY}/r-deps:${R_VERSION} r-deps
+	${DOCKER_BUILD} --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} --tag ${REGISTRY}/r-deps:${R_VERSION} r-deps
 
 minimal:
-	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --build-arg MRAN_DATE=${MRAN_DATE} --tag ${REGISTRY}/r-minimal:${R_VERSION} r-minimal
+	${DOCKER_BUILD} ${R_BUILD_ARG} --build-arg MRAN_DATE=${MRAN_DATE} --tag ${MINIMAL_NAME} r-minimal
 
 base:
-	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --tag ${REGISTRY}/r-base:${R_VERSION} r-base
+	${DOCKER_BUILD} ${R_BUILD_ARG} --tag ${BASE_NAME} r-base
 
 test:
-	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --tag ${REGISTRY}/r-test:${R_VERSION} r-test
+	${DOCKER_BUILD} ${R_BUILD_ARG} --tag ${REGISTRY}/r-test:${R_VERSION} r-test
 
 shiny:
 	cd shiny-server && \
-	DOCKER_BUILDKIT=1 docker build --build-arg R_VERSION=${R_VERSION} --build-arg SHINY_VERSION=${SHINY_VERSION} --tag ${REGISTRY}/shiny:${R_VERSION}-${SHINY_VERSION} .
+	${DOCKER_BUILD} ${R_BUILD_ARG} --build-arg SHINY_VERSION=${SHINY_VERSION} --tag ${SHINY_NAME} .
 
 
 
 minimal-cst:
-	container-structure-test test --config r-minimal/minimal-tests.yaml --image ${REGISTRY}/r-minimal:${R_VERSION}
+	${CST} --config r-minimal/minimal-tests.yaml --image ${MINIMAL_NAME}
 
 base-cst:
-	container-structure-test test --config r-base/base-tests.yaml --image ${REGISTRY}/r-base:${R_VERSION}
+	${CST} --config r-base/base-tests.yaml --image ${BASE_NAME}
 
 shiny-cst:
-	container-structure-test test --config shiny/shiny-tests.yaml --image ${REGISTRY}/shiny:${R_VERSION}-${SHINY_VERSION} 
+	${CST} --config shiny-server/shiny-tests.yaml --image ${SHINY_NAME}
+
