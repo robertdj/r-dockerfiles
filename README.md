@@ -101,6 +101,12 @@ Some technical considerations.
 The Linux Dockerfiles use the [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements) to enable faster builds and the use of [heredocs](https://www.docker.com/blog/introduction-to-heredocs-in-dockerfiles) in the Dockerfiles.
 
 
+## Tests
+
+I use [Container Structure Tests](https://github.com/GoogleContainerTools/container-structure-test) to test images.
+The tests for an image is the `yaml` file in the same folder as the `Dockerfile` and the commands for testing are in `Makefile`.
+
+
 ## `whoami`
 
 When this repo began, all images started R as a normal/non-privileged user.

@@ -1,0 +1,8 @@
+schemaVersion: 2.0.0
+
+commandTests:
+  - name: "{remotes} is installed"
+    command: "Rscript"
+    args: ["-e", "find.package('remotes')"]
+    expectedOutput: ["/usr/local/lib/R/site-library/remotes"]
+
