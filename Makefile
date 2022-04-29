@@ -1,6 +1,6 @@
 REGISTRY = robertdj
 UBUNTU_VERSION = 20.04
-R_VERSION = 4.2.0
+R_VERSION = 4.1.3
 MRAN_DATE = 2022-04-22
 SHINY_VERSION = 1.5.17.973
 
@@ -31,7 +31,6 @@ test:
 shiny:
 	cd shiny-server && \
 	${DOCKER_BUILD} ${R_BUILD_ARG} --build-arg SHINY_VERSION=${SHINY_VERSION} --tag ${SHINY_NAME} .
-
 
 
 minimal-cst:
