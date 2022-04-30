@@ -47,6 +47,7 @@ Available on [Docker Hub](https://hub.docker.com/r/robertdj/shiny).
 
 The configuration file `shiny-server.conf` is very basic:
 It exposes the Shiny server at port 3838 and includes some example apps.
+Check out [Shiny server's docs](https://docs.rstudio.com/shiny-server) to learn more about its configuration.
 
 Example apps from Shiny server are available at `<url>/sample-apps`.
 
