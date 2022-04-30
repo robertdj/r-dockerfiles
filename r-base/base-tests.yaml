@@ -1,6 +1,14 @@
 schemaVersion: 2.0.0
 
 commandTests:
+  - name: "C/C++ compilers are installed"
+    command: "which"
+    args: ["gcc"]
+    expectedOutput: ["/usr/bin/gcc"]
+  - name: "Fortran compiler is installed"
+    command: "which"
+    args: ["gfortran"]
+    expectedOutput: ["/usr/bin/gfortran"]
   - name: "{remotes} is installed"
     command: "Rscript"
     args: ["-e", "find.package('remotes')"]
