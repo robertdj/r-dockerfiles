@@ -3,7 +3,12 @@
 ARG R_VERSION
 FROM robertdj/r-deps:${R_VERSION} as builder
 
+ARG DEBIAN_FRONTEND=noninteractive 
+
 RUN <<EOF
+LANG=${LANG:-en_US.UTF-8}
+LC_ALL=${LC_ALL:-en_US.UTF-8}
+
 apt-get update
 apt-get install -y --no-install-recommends \
     bash-completion \
