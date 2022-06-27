@@ -46,8 +46,8 @@ apt-get autoclean -y
 rm -rf /var/lib/apt/lists/*
 EOF
 
-ENV LC_ALL=en_US.UTF-8 \
-    LANG=en_US.UTF-8 \
-    LANGUAGE=en_US:en \
-    TERM=xterm
+ENV LC_ALL="en_US.UTF-8" \
+    LANG="en_US.UTF-8" \
+    LANGUAGE="en_US:en" \
+    TERM="xterm"
 
