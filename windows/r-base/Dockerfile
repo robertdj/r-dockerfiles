@@ -2,11 +2,11 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 ARG R_VERSION
 
-RUN curl.exe -o rtools.exe https://cran.r-project.org/bin/windows/Rtools/rtools40-x86_64.exe && rtools.exe /VERYSILENT -NoNewWindow -Wait && del rtools.exe
+RUN curl.exe -o rtools.exe https://cran.r-project.org/bin/windows/Rtools/rtools42/files/rtools42-5168-5107.exe && rtools.exe /VERYSILENT -NoNewWindow -Wait && del rtools.exe
 
 RUN curl.exe -o R-%R_VERSION%-win.exe https://cran.r-project.org/bin/windows/base/old/%R_VERSION%/R-%R_VERSION%-win.exe && R-%R_VERSION%-win.exe /VERYSILENT /DIR="C:\R" && del R-%R_VERSION%-win.exe
 
-RUN setx /M path "%path%;C:\R\bin;%RTOOLS40_HOME%\usr\bin"
+RUN setx /M path "%path%;C:\R\bin;C:\rtools42\usr\bin"
 
 
 ARG MRAN_DATE
