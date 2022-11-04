@@ -12,11 +12,11 @@ commandTests:
   - name: "R version is correct"  
     command: "R"
     args: ["--version"]  
-    expectedOutput: ["R version 4.2.0"]
+    expectedOutput: ["R version 4.2.1"]
   - name: "MRAN is set"
     command: "Rscript"
     args: ["-e", "getOption('repos')"]  
-    expectedOutput: ["https://mran.microsoft.com/snapshot/2022-06-23"]
+    expectedOutput: ["https://mran.microsoft.com/snapshot/2022-10-31"]
 
 metadataTest:
   workdir: "/home/shiny"
