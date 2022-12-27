@@ -1,17 +1,32 @@
 # syntax = docker/dockerfile:1.3-labs
 
-ARG R_VERSION
-FROM robertdj/r-deps:${R_VERSION} as builder
+# ARG R_VERSION
+# FROM robertdj/r-deps:${R_VERSION} as builder
+
+ARG UBUNTU_VERSION
+FROM ubuntu:${UBUNTU_VERSION}
+
+# RUN <<EOF
+# apt-get update
+# apt-get upgrade -y
+
+# # Set locales
+# LANG=${LANG:-en_US.UTF-8}
+# LC_ALL=${LC_ALL:-en_US.UTF-8}
+
+# apt-get install -y --no-install-recommends locales
+
+# /usr/sbin/locale-gen --lang "${LANG}"
+# /usr/sbin/update-locale --reset LANG="${LANG}"
+# EOF
 
 ARG DEBIAN_FRONTEND=noninteractive 
 
-RUN <<EOF
-LANG=${LANG:-en_US.UTF-8}
-LC_ALL=${LC_ALL:-en_US.UTF-8}
+ARG R_VERSION
 
-apt-get update
-apt-get install -y --no-install-recommends \
-    bash-completion \
+RUN <<EOF
+# Build dependencies
+BUILDDEPS="bash-completion \
     bison \
     curl \
     default-jdk \
@@ -20,7 +35,6 @@ apt-get install -y --no-install-recommends \
     gcc \
     gfortran \
     groff-base \
-    libblas-dev \
     libbz2-dev \
     libcairo2-dev \
     libpango1.0-dev \
@@ -39,24 +53,58 @@ apt-get install -y --no-install-recommends \
     tcl8.6-dev \
     tk8.6-dev \
     texinfo \
-    texlive-base \
     texlive-extra-utils \
     texlive-fonts-extra \
     texlive-fonts-recommended \
-    texlive-latex-base \
     texlive-latex-extra \
     texlive-latex-recommended \
     x11proto-core-dev \
     xauth \
     xfonts-base \
     xvfb \
-    zlib1g-dev
-EOF
+    zlib1g-dev"
 
-ARG R_VERSION
+RUNTIME_DEPS="ca-certificates \
+    file \
+    fonts-texgyre \
+    gsfonts \
+    libblas3 \
+    libblas-dev \
+    libbz2-1.0 \
+    libcairo2 \
+    libcurl4 \
+    libcurl4-openssl-dev \
+    libglib2.0-0 \
+    libgomp1 \
+    libicu66 \
+    libjpeg8 \
+    liblzma5 \
+    libopenblas-dev \
+    libpangocairo-1.0-0 \
+    libpcre2-dev \
+    libpng16-16 \
+    libreadline8 \
+    libtiff5 \
+    make \
+    ucf \
+    unzip \
+    zip \
+    zlib1g"
+
+apt-get update
+apt-get install -y --no-install-recommends ${BUILDDEPS} ${RUNTIME_DEPS} locales
+
+# Set locales
+LANG=${LANG:-en_US.UTF-8}
+LC_ALL=${LC_ALL:-en_US.UTF-8}
+
+# apt-get install -y --no-install-recommends locales
+
+/usr/sbin/locale-gen --lang "${LANG}"
+/usr/sbin/update-locale --reset LANG="${LANG}"
+
 
 # Download and install R
-RUN <<EOF
 cd /tmp
 curl -O https://cran.r-project.org/src/base/R-4/R-${R_VERSION}.tar.gz
 tar -xf R-${R_VERSION}.tar.gz
@@ -86,11 +134,24 @@ CXXFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdat
 ## Build and install
 make
 make install
+
+
+# Clean build dependencies
+apt-get remove --purge -y ${BUILDDEPS}
+apt-get autoremove -y
+apt-get autoclean -y
+rm -rf /var/lib/apt/lists/*
+rm -rf /tmp/*
 EOF
 
-FROM robertdj/r-deps:${R_VERSION}
+ENV LC_ALL="en_US.UTF-8" \
+    LANG="en_US.UTF-8" \
+    LANGUAGE="en_US:en" \
+    TERM="xterm"
 
-COPY --from=builder /usr/local/ /usr/local/
+# FROM robertdj/r-deps:${R_VERSION}
+
+# COPY --from=builder /usr/local/ /usr/local/
 
 
 # ------------------------------------------------------------------------------
