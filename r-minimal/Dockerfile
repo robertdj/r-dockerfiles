@@ -76,7 +76,7 @@ RUNTIME_DEPS="ca-certificates \
     libcurl4-openssl-dev \
     libglib2.0-0 \
     libgomp1 \
-    libicu66 \
+    libicu[0-9][0-9] \
     libjpeg8 \
     liblzma5 \
     libopenblas-dev \
