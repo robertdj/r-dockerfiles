@@ -60,6 +60,7 @@ RUNTIME_DEPS="ca-certificates \
     libicu[0-9][0-9] \
     libjpeg8 \
     liblzma5 \
+    libopenblas-dev \
     libpangocairo-1.0-0 \
     libpcre2-dev \
     libpng16-16 \
