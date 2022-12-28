@@ -1,24 +1,7 @@
 # syntax = docker/dockerfile:1.3-labs
 
-# ARG R_VERSION
-# FROM robertdj/r-deps:${R_VERSION} as builder
-
 ARG UBUNTU_VERSION
 FROM ubuntu:${UBUNTU_VERSION}
-
-# RUN <<EOF
-# apt-get update
-# apt-get upgrade -y
-
-# # Set locales
-# LANG=${LANG:-en_US.UTF-8}
-# LC_ALL=${LC_ALL:-en_US.UTF-8}
-
-# apt-get install -y --no-install-recommends locales
-
-# /usr/sbin/locale-gen --lang "${LANG}"
-# /usr/sbin/update-locale --reset LANG="${LANG}"
-# EOF
 
 ARG DEBIAN_FRONTEND=noninteractive 
 
@@ -133,7 +116,7 @@ make install
 
 
 # Clean build dependencies
-apt-get remove --purge -y ${BUILDDEPS}
+apt-get remove --purge -y ${BUILD_DEPS}
 apt-get autoremove -y
 apt-get autoclean -y
 rm -rf /var/lib/apt/lists/*
@@ -144,10 +127,6 @@ ENV LC_ALL="en_US.UTF-8" \
     LANG="en_US.UTF-8" \
     LANGUAGE="en_US:en" \
     TERM="xterm"
-
-# FROM robertdj/r-deps:${R_VERSION}
-
-# COPY --from=builder /usr/local/ /usr/local/
 
 
 # ------------------------------------------------------------------------------
