@@ -13,12 +13,6 @@ To get the files for e.g. R version 3.6.2, checkout the tag `v3.6.2`.
 (This approach does not seem to work with automatic builds on Docker Hub, so I push selected images manually 😰)
 
 
-# Deps
-
-Contains the runtime dependencies for R.
-Available on [Docker Hub](https://hub.docker.com/r/robertdj/r-deps).
-
-
 # Minimal
 
 The `r-minimal` image contains R and the package repository is set to an appropriate [MRAN snapshot](https://mran.microsoft.com/documents/rro/reproducibility#snapshot) to ensure compatability with the R version.
