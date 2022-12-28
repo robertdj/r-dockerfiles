@@ -8,7 +8,7 @@ commandTests:
   - name: "{rmarkdown} and {shiny} are installed"
     command: "Rscript"
     args: ["-e", "find.package(c('rmarkdown', 'shiny'))"]
-    expectedOutput: ["/usr/local/lib/R/site-library/rmarkdown", "/usr/local/lib/R/site-library/shiny"]
+    expectedOutput: [".?/rmarkdown\"", ".?/shiny\""]
 
 
 fileExistenceTests:
