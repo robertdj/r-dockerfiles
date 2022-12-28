@@ -25,8 +25,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG R_VERSION
 
 RUN <<EOF
-# Build dependencies
-BUILDDEPS="bash-completion \
+BUILD_DEPS="bash-completion \
     bison \
     curl \
     default-jdk \
@@ -68,7 +67,6 @@ RUNTIME_DEPS="ca-certificates \
     file \
     fonts-texgyre \
     gsfonts \
-    libblas3 \
     libblas-dev \
     libbz2-1.0 \
     libcairo2 \
@@ -79,12 +77,12 @@ RUNTIME_DEPS="ca-certificates \
     libicu[0-9][0-9] \
     libjpeg8 \
     liblzma5 \
-    libopenblas-dev \
     libpangocairo-1.0-0 \
     libpcre2-dev \
     libpng16-16 \
     libreadline8 \
     libtiff5 \
+    locales \
     make \
     ucf \
     unzip \
@@ -92,13 +90,11 @@ RUNTIME_DEPS="ca-certificates \
     zlib1g"
 
 apt-get update
-apt-get install -y --no-install-recommends ${BUILDDEPS} ${RUNTIME_DEPS} locales
+apt-get install -y --no-install-recommends ${BUILD_DEPS} ${RUNTIME_DEPS}
 
 # Set locales
 LANG=${LANG:-en_US.UTF-8}
 LC_ALL=${LC_ALL:-en_US.UTF-8}
-
-# apt-get install -y --no-install-recommends locales
 
 /usr/sbin/locale-gen --lang "${LANG}"
 /usr/sbin/update-locale --reset LANG="${LANG}"
