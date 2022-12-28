@@ -14,13 +14,10 @@ R_BUILD_ARG := --build-arg R_VERSION=${R_VERSION}
 CST = container-structure-test test
 
 
-all: deps minimal base test shiny
-
-deps:
-	${DOCKER_BUILD} --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} --tag ${REGISTRY}/r-deps:${R_VERSION} r-deps
+all: minimal base test shiny
 
 minimal:
-	${DOCKER_BUILD} ${R_BUILD_ARG} --build-arg MRAN_DATE=${MRAN_DATE} --tag ${MINIMAL_NAME} r-minimal
+	${DOCKER_BUILD} --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} ${R_BUILD_ARG} --build-arg MRAN_DATE=${MRAN_DATE} --tag ${MINIMAL_NAME} r-minimal
 
 base:
 	${DOCKER_BUILD} ${R_BUILD_ARG} --tag ${BASE_NAME} r-base
