@@ -6,6 +6,7 @@ SHINY_VERSION = 1.5.19.995
 
 MINIMAL_NAME := ${REGISTRY}/r-minimal:${R_VERSION}
 BASE_NAME    := ${REGISTRY}/r-base:${R_VERSION}
+PPTM_NAME    := ${REGISTRY}/r-pptm:${R_VERSION}
 TEST_NAME    := ${REGISTRY}/r-test:${R_VERSION}
 SHINY_NAME   := ${REGISTRY}/shiny:${R_VERSION}-${SHINY_VERSION}
 
@@ -21,6 +22,9 @@ minimal:
 
 base:
 	${DOCKER_BUILD} ${R_BUILD_ARG} --tag ${BASE_NAME} r-base
+
+pptm:
+	${DOCKER_BUILD} ${R_BUILD_ARG} --tag ${PPTM_NAME} r-pptm
 
 test:
 	${DOCKER_BUILD} ${R_BUILD_ARG} --tag ${TEST_NAME} r-test
