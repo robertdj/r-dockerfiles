@@ -1,8 +1,7 @@
 REGISTRY = robertdj
 UBUNTU_VERSION = 22.04
-R_VERSION = 4.2.1
-MRAN_DATE = 2022-10-31
-SHINY_VERSION = 1.5.19.995
+R_VERSION = 4.2.0
+SHINY_VERSION = 1.5.20.1002
 
 MINIMAL_NAME := ${REGISTRY}/r-minimal:${R_VERSION}
 BASE_NAME    := ${REGISTRY}/r-base:${R_VERSION}
@@ -18,7 +17,7 @@ CST = container-structure-test test
 all: minimal base test shiny
 
 minimal:
-	${DOCKER_BUILD} --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} ${R_BUILD_ARG} --build-arg MRAN_DATE=${MRAN_DATE} --tag ${MINIMAL_NAME} r-minimal
+	${DOCKER_BUILD} --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} ${R_BUILD_ARG} --tag ${MINIMAL_NAME} r-minimal
 
 base:
 	${DOCKER_BUILD} ${R_BUILD_ARG} --tag ${BASE_NAME} r-base
