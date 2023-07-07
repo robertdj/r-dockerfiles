@@ -115,7 +115,6 @@ CXXFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdat
 make
 make install
 
-
 # Clean build dependencies
 apt-get remove --purge -y ${BUILD_DEPS}
 apt-get autoremove -y
@@ -136,10 +135,6 @@ ENV LC_ALL="en_US.UTF-8" \
 # The USER is called shiny to make life easier in Shiny server images.
 # Group shiny owns the default global R package folder *and* all coming 
 # subfolders because Shiny server requires global packages
-#
-# Microsoft's daily snapshots of CRAN are used as package repo for reproducibility
-
-ARG MRAN_DATE
 
 RUN <<EOF
 useradd --create-home --home-dir /home/shiny shiny
@@ -154,7 +149,7 @@ echo "R_LIBS_USER='/usr/local/lib/R/site-library'" >> /usr/local/lib/R/etc/Renvi
 echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library'}" >> /usr/local/lib/R/etc/Renviron
 
 ## Add a default CRAN mirror
-echo "options(repos = c(MRAN = 'https://mran.microsoft.com/snapshot/${MRAN_DATE}'), download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site
+echo "options(repos = c(CRAN = 'https://cloud.r-project.org'), download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site
 EOF
 
 WORKDIR /home/shiny
