@@ -9,7 +9,7 @@ apt-get install -y --no-install-recommends \
     libxml2-dev \
     libssl-dev
 
-Rscript -e 'remotes::install_github("robertdj/pptm", Ncpus = parallel::detectCores())'
+Rscript -e 'remotes::install_github("robertdj/pptm@v0.1.0", Ncpus = parallel::detectCores())'
 
 rm -rf /var/lib/apt/lists/*
 rm -rf /tmp/*
