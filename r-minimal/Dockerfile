@@ -155,4 +155,3 @@ EOF
 WORKDIR /home/shiny
 
 CMD [ "R", "--no-save" ]
-

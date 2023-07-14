@@ -62,6 +62,7 @@ ln -s /usr/local/shiny-server/samples/welcome.html /srv/shiny-server/index.html
 ln -s /usr/local/shiny-server/samples/sample-apps /srv/shiny-server/sample-apps
 EOF
 
+
 RUN --mount=type=bind,from=packages,source=/tmp/pptm,target=/tmp/pptm <<EOF
 Rscript -e 'install.packages(
     c("shiny", "rmarkdown"), 
