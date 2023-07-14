@@ -11,6 +11,6 @@ commandTests:
     expectedOutput: ["/usr/bin/gfortran"]
   - name: "{remotes} is installed"
     command: "Rscript"
-    args: ["-e", "find.package('remotes')"]
-    expectedOutput: ["/usr/local/lib/R/site-library/remotes"]
+    args: ["-e", "installed.packages(priority='NA')"]
+    expectedOutput: ["remotes"]
 
