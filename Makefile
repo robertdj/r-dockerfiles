@@ -14,7 +14,7 @@ R_BUILD_ARG := --build-arg R_VERSION=${R_VERSION}
 CST = container-structure-test test
 
 
-all: minimal base test shiny
+all: minimal base pptm test shiny
 
 minimal:
 	${DOCKER_BUILD} --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} ${R_BUILD_ARG} --tag ${MINIMAL_NAME} r-minimal
