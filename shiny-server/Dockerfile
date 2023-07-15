@@ -1,6 +1,17 @@
 # syntax = docker/dockerfile:1.3-labs
 
 ARG R_VERSION
+FROM robertdj/r-pptm:${R_VERSION} AS packages
+
+ARG R_VERSION
+RUN <<EOF
+Rscript \
+    -e 'versions <- pptm::get_version(c("shiny", "rmarkdown"), r_version = Sys.getenv("R_VERSION"), package_dir = "/tmp/pptm")' \
+    -e 'pptm::make_cran(versions)'
+EOF
+
+
+ARG R_VERSION
 FROM robertdj/r-base:${R_VERSION}
 
 ARG SHINY_VERSION
@@ -51,9 +62,14 @@ ln -s /usr/local/shiny-server/samples/welcome.html /srv/shiny-server/index.html
 ln -s /usr/local/shiny-server/samples/sample-apps /srv/shiny-server/sample-apps
 EOF
 
-RUN <<EOF
-Rscript -e 'install.packages(c("shiny", "rmarkdown"), Ncpus = parallel::detectCores())'
-rm -rf /tmp/*
+
+RUN --mount=type=bind,from=packages,source=/tmp/pptm,target=/tmp/pptm <<EOF
+Rscript -e 'install.packages(
+    c("shiny", "rmarkdown"), 
+    repos = "file:///tmp/pptm",
+    type = "source",
+    Ncpus = parallel::detectCores()
+)'
 
 cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/
 EOF
@@ -61,4 +77,3 @@ EOF
 COPY --chown=shiny:shiny shiny-server.conf /etc/shiny-server/shiny-server.conf 
 
 CMD [ "shiny-server" ]
-

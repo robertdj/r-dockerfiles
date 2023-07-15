@@ -1,11 +1,11 @@
 REGISTRY = robertdj
 UBUNTU_VERSION = 22.04
-R_VERSION = 4.2.1
-MRAN_DATE = 2022-10-31
-SHINY_VERSION = 1.5.19.995
+R_VERSION = 4.2.3
+SHINY_VERSION = 1.5.20.1002
 
 MINIMAL_NAME := ${REGISTRY}/r-minimal:${R_VERSION}
 BASE_NAME    := ${REGISTRY}/r-base:${R_VERSION}
+PPTM_NAME    := ${REGISTRY}/r-pptm:${R_VERSION}
 TEST_NAME    := ${REGISTRY}/r-test:${R_VERSION}
 SHINY_NAME   := ${REGISTRY}/shiny:${R_VERSION}-${SHINY_VERSION}
 
@@ -14,13 +14,16 @@ R_BUILD_ARG := --build-arg R_VERSION=${R_VERSION}
 CST = container-structure-test test
 
 
-all: minimal base test shiny
+all: minimal base pptm test shiny
 
 minimal:
-	${DOCKER_BUILD} --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} ${R_BUILD_ARG} --build-arg MRAN_DATE=${MRAN_DATE} --tag ${MINIMAL_NAME} r-minimal
+	${DOCKER_BUILD} --build-arg UBUNTU_VERSION=${UBUNTU_VERSION} ${R_BUILD_ARG} --tag ${MINIMAL_NAME} r-minimal
 
 base:
 	${DOCKER_BUILD} ${R_BUILD_ARG} --tag ${BASE_NAME} r-base
+
+pptm:
+	${DOCKER_BUILD} ${R_BUILD_ARG} --tag ${PPTM_NAME} r-pptm
 
 test:
 	${DOCKER_BUILD} ${R_BUILD_ARG} --tag ${TEST_NAME} r-test

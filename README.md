@@ -12,10 +12,13 @@ Instead, each version of R has its own tag.
 To get the files for e.g. R version 3.6.2, checkout the tag `v3.6.2`.
 (This approach does not seem to work with automatic builds on Docker Hub, so I push selected images manually 😰)
 
+Once upon a time I relied on Microsoft's MRAN service to install packages as they appeared for each version of R.
+Now that MRAN is departed I install packages using the [{pptm} package](https://github.com/robertdj/pptm) to ensure compatability with the R version.
+
 
 # Minimal
 
-The `r-minimal` image contains R and the package repository is set to an appropriate [MRAN snapshot](https://mran.microsoft.com/documents/rro/reproducibility#snapshot) to ensure compatability with the R version.
+The `r-minimal` image only contains R.
 Available on [Docker Hub](https://hub.docker.com/r/robertdj/r-minimal).
 
 
@@ -36,7 +39,7 @@ My usecase is to copy/clone a package (repository) into this folder and then tes
 
 # Shiny
 
-The shiny image contains a Shiny server installed from source as [described in Shiny server's wiki](https://github.com/rstudio/shiny-server/wiki/Building-Shiny-Server-from-Source).
+The shiny image contains a Shiny server installed from source as [described in Shiny server's wiki](https://github.com/rstudio/shiny-server/wiki/Building-Shiny-Server-from-Source) as well as the {shiny} and {rmarkdown} packages.
 Available on [Docker Hub](https://hub.docker.com/r/robertdj/shiny).
 
 The configuration file `shiny-server.conf` is very basic:
